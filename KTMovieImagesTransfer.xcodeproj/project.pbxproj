@@ -15,6 +15,8 @@
 		0AFA0D091D5F600900AF65F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AFA0D071D5F600900AF65F4 /* LaunchScreen.storyboard */; };
 		0AFA0D141D5F600900AF65F4 /* KTMovieImagesTransferTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0D131D5F600900AF65F4 /* KTMovieImagesTransferTests.m */; };
 		0AFA0D1F1D5F600900AF65F4 /* KTMovieImagesTransferUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0D1E1D5F600900AF65F4 /* KTMovieImagesTransferUITests.m */; };
+		0AFA0D311D5F609200AF65F4 /* KTMovieImagesTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0D301D5F609200AF65F4 /* KTMovieImagesTransfer.m */; };
+		0AFA0D341D5F60B300AF65F4 /* KTTransferOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA0D331D5F60B300AF65F4 /* KTTransferOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		0AFA0D1A1D5F600900AF65F4 /* KTMovieImagesTransferUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KTMovieImagesTransferUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AFA0D1E1D5F600900AF65F4 /* KTMovieImagesTransferUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KTMovieImagesTransferUITests.m; sourceTree = "<group>"; };
 		0AFA0D201D5F600900AF65F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0AFA0D2F1D5F609200AF65F4 /* KTMovieImagesTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTMovieImagesTransfer.h; sourceTree = "<group>"; };
+		0AFA0D301D5F609200AF65F4 /* KTMovieImagesTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTMovieImagesTransfer.m; sourceTree = "<group>"; };
+		0AFA0D321D5F60B300AF65F4 /* KTTransferOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTTransferOperation.h; sourceTree = "<group>"; };
+		0AFA0D331D5F60B300AF65F4 /* KTTransferOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTTransferOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,7 @@
 		0AFA0CED1D5F600900AF65F4 = {
 			isa = PBXGroup;
 			children = (
+				0AFA0D2E1D5F607000AF65F4 /* Classes */,
 				0AFA0CF81D5F600900AF65F4 /* KTMovieImagesTransfer */,
 				0AFA0D121D5F600900AF65F4 /* KTMovieImagesTransferTests */,
 				0AFA0D1D1D5F600900AF65F4 /* KTMovieImagesTransferUITests */,
@@ -138,6 +145,17 @@
 				0AFA0D201D5F600900AF65F4 /* Info.plist */,
 			);
 			path = KTMovieImagesTransferUITests;
+			sourceTree = "<group>";
+		};
+		0AFA0D2E1D5F607000AF65F4 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0AFA0D2F1D5F609200AF65F4 /* KTMovieImagesTransfer.h */,
+				0AFA0D301D5F609200AF65F4 /* KTMovieImagesTransfer.m */,
+				0AFA0D321D5F60B300AF65F4 /* KTTransferOperation.h */,
+				0AFA0D331D5F60B300AF65F4 /* KTTransferOperation.m */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,8 +288,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AFA0D311D5F609200AF65F4 /* KTMovieImagesTransfer.m in Sources */,
 				0AFA0D011D5F600900AF65F4 /* ViewController.m in Sources */,
 				0AFA0CFE1D5F600900AF65F4 /* AppDelegate.m in Sources */,
+				0AFA0D341D5F60B300AF65F4 /* KTTransferOperation.m in Sources */,
 				0AFA0CFB1D5F600900AF65F4 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
