@@ -1,5 +1,5 @@
 //
-//  KTImagesMovieTransfer.h
+//  KTMovieImagesTransfer.h
 //  TransferDemo
 //
 //  Created by Kevin on 2016/10/25.
@@ -29,11 +29,11 @@ typedef NS_ENUM(NSInteger, KTTransferErrorCode) {
     KTTransferOpenCodecError
 };
 
-extern NSString * const KTImagesMovieTransferErrorDomain;
+extern NSString * const KTMovieImagesTransferErrorDomain;
 
-@class KTImagesMovieTransfer;
+@class KTMovieImagesTransfer;
 
-@protocol KTImagesMovieTransferDelegate <NSObject>
+@protocol KTMovieImagesTransferDelegate <NSObject>
 
 @optional
 
@@ -44,7 +44,7 @@ extern NSString * const KTImagesMovieTransferErrorDomain;
  @param index           index表示解压或者压缩到了第几帧
  @param totalFrameCount totalFrameCount表示总帧数
  */
-- (void)transfer:(KTImagesMovieTransfer *)transfer didTransferedAtIndex:(NSUInteger)index totalFrameCount:(NSUInteger)totalFrameCount;
+- (void)transfer:(KTMovieImagesTransfer *)transfer didTransferedAtIndex:(NSUInteger)index totalFrameCount:(NSUInteger)totalFrameCount;
 
 /**
  解压或者压缩完成/失败时候的回调
@@ -52,13 +52,13 @@ extern NSString * const KTImagesMovieTransferErrorDomain;
  @param transfer transfer
  @param error    如果成功，error为nil，否则为空
  */
-- (void)transfer:(KTImagesMovieTransfer *)transfer didFinishedWithError:(NSError *)error;
+- (void)transfer:(KTMovieImagesTransfer *)transfer didFinishedWithError:(NSError *)error;
 
 @end
 
-@interface KTImagesMovieTransfer : NSObject
+@interface KTMovieImagesTransfer : NSObject
 
-@property (nonatomic, weak) id<KTImagesMovieTransferDelegate> delegate;
+@property (nonatomic, weak) id<KTMovieImagesTransferDelegate> delegate;
 @property (nonatomic, assign) KTTransferMethod transferMethod;
 
 /**

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="84h-yp-ksc">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="0bO-Ig-hsV">
+            <objects>
+                <navigationController id="84h-yp-ksc" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Egp-Ds-2fg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="tih-xG-EdO" kind="relationship" relationship="rootViewController" id="8iu-7H-lG1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SKS-Lq-fSK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1292" y="116"/>
+        </scene>
+        <!--图片视频转换-->
+        <scene sceneID="G7S-IV-nSc">
+            <objects>
+                <viewController id="tih-xG-EdO" customClass="RootViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3gZ-Pd-a8J"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Tw-jk-0Jv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LpT-QP-wvO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-Uf-huY">
+                                <segments>
+                                    <segment title="原生"/>
+                                    <segment title="OpenCV"/>
+                                    <segment title="FFmpeg"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jh4-6I-zzm">
+                                <state key="normal" title="转换"/>
+                                <connections>
+                                    <action selector="tapTranserButton:" destination="tih-xG-EdO" eventType="touchUpInside" id="jl1-JT-03l"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z4b-cQ-Ca5">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="t1T-Y0-WVq"/>
+                                </constraints>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKV-HS-M7P">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="55C-yJ-6XX">
+                                <segments>
+                                    <segment title="视频转图片"/>
+                                    <segment title="图片转视频"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeType:" destination="tih-xG-EdO" eventType="valueChanged" id="sxM-gc-EMq"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="55C-yJ-6XX" firstAttribute="top" secondItem="gcn-Uf-huY" secondAttribute="bottom" constant="30" id="7Qe-Nv-Dv9"/>
+                            <constraint firstItem="55C-yJ-6XX" firstAttribute="centerX" secondItem="gcn-Uf-huY" secondAttribute="centerX" id="C3G-hl-ViA"/>
+                            <constraint firstItem="jh4-6I-zzm" firstAttribute="centerX" secondItem="55C-yJ-6XX" secondAttribute="centerX" id="E3q-Oa-mOt"/>
+                            <constraint firstItem="jh4-6I-zzm" firstAttribute="top" secondItem="55C-yJ-6XX" secondAttribute="bottom" constant="30" id="HFS-Gu-o6p"/>
+                            <constraint firstItem="JKV-HS-M7P" firstAttribute="centerX" secondItem="z4b-cQ-Ca5" secondAttribute="centerX" id="Hb4-e8-YBe"/>
+                            <constraint firstItem="gcn-Uf-huY" firstAttribute="top" secondItem="3gZ-Pd-a8J" secondAttribute="bottom" constant="55" id="Vfx-Ub-nlr"/>
+                            <constraint firstItem="gcn-Uf-huY" firstAttribute="centerX" secondItem="LpT-QP-wvO" secondAttribute="centerX" id="cUR-su-KXk"/>
+                            <constraint firstItem="z4b-cQ-Ca5" firstAttribute="top" secondItem="jh4-6I-zzm" secondAttribute="bottom" constant="40" id="hlC-BB-CXe"/>
+                            <constraint firstItem="JKV-HS-M7P" firstAttribute="top" secondItem="z4b-cQ-Ca5" secondAttribute="bottom" constant="10" id="iJa-jW-cux"/>
+                            <constraint firstItem="z4b-cQ-Ca5" firstAttribute="centerX" secondItem="jh4-6I-zzm" secondAttribute="centerX" id="sWg-mU-KPU"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="图片视频转换" id="UBM-ao-ImM"/>
+                    <connections>
+                        <outlet property="methodSegment" destination="gcn-Uf-huY" id="8Cg-Ye-vrv"/>
+                        <outlet property="progressLabel" destination="JKV-HS-M7P" id="g4i-MN-FyZ"/>
+                        <outlet property="progressView" destination="z4b-cQ-Ca5" id="7nP-Xh-vEE"/>
+                        <outlet property="transferButton" destination="jh4-6I-zzm" id="LFy-80-dDy"/>
+                        <outlet property="typeSegment" destination="55C-yJ-6XX" id="q31-FW-i0f"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="edk-pP-vKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-473" y="116"/>
+        </scene>
+    </scenes>
+</document>

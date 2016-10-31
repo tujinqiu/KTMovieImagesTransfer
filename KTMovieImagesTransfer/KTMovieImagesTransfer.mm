@@ -1,12 +1,12 @@
 //
-//  KTImagesMovieTransfer.m
+//  KTMovieImagesTransfer.m
 //  OV3D
 //
 //  Created by whkevin on 2016/10/25.
 //  Copyright © 2016年 ov. All rights reserved.
 //
 
-#import "KTImagesMovieTransfer.h"
+#import "KTMovieImagesTransfer.h"
 #import <AVFoundation/AVFoundation.h>
 #import <opencv2/opencv.hpp>
 extern "C"
@@ -16,21 +16,21 @@ extern "C"
 #import <libswscale/swscale.h>
 }
 
-NSString * const KTImagesMovieTransferErrorDomain = @"KTImagesMovieTransferErrorDomain";
+NSString * const KTMovieImagesTransferErrorDomain = @"KTMovieImagesTransferErrorDomain";
 // 默认帧率
-static NSUInteger const kKTImagesMovieTransferFPS = 30;
+static NSUInteger const kKTMovieImagesTransferFPS = 30;
 
-static dispatch_queue_t KTImagesMovieTransferQueue () {
+static dispatch_queue_t KTMovieImagesTransferQueue () {
     static dispatch_queue_t queue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        queue = dispatch_queue_create("com.kevinting.KTImagesMovieTransfer.queue", DISPATCH_QUEUE_SERIAL);
+        queue = dispatch_queue_create("com.kevinting.KTMovieImagesTransfer.queue", DISPATCH_QUEUE_SERIAL);
     });
     
     return queue;
 }
 
-@implementation KTImagesMovieTransfer
+@implementation KTMovieImagesTransfer
 
 - (NSError *)errorWithErrorCode:(KTTransferErrorCode)errorCode object:(id)object
 {
@@ -64,12 +64,12 @@ static dispatch_queue_t KTImagesMovieTransferQueue () {
             errorString = [NSString stringWithFormat:@"打开视频文件失败：%@", object];
             break;
             
-//        default:
-//            errorString = @"未知错误";
-//            break;
+        default:
+            errorString = @"未知错误";
+            break;
     }
     
-    return [NSError errorWithDomain:KTImagesMovieTransferErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey : errorString}];
+    return [NSError errorWithDomain:KTMovieImagesTransferErrorDomain code:errorCode userInfo:@{NSLocalizedDescriptionKey : errorString}];
 }
 
 - (void)sendToMainThreadError:(NSError *)error;
@@ -157,10 +157,10 @@ static dispatch_queue_t KTImagesMovieTransferQueue () {
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:movie] options:nil];
     AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     CMTime time = asset.duration;
-    NSUInteger totalFrameCount = CMTimeGetSeconds(time) * kKTImagesMovieTransferFPS;
+    NSUInteger totalFrameCount = CMTimeGetSeconds(time) * kKTMovieImagesTransferFPS;
     NSMutableArray *timesArray = [NSMutableArray arrayWithCapacity:totalFrameCount];
     for (NSUInteger ii = 0; ii < totalFrameCount; ++ii) {
-        CMTime timeFrame = CMTimeMake(ii, kKTImagesMovieTransferFPS);
+        CMTime timeFrame = CMTimeMake(ii, kKTMovieImagesTransferFPS);
         NSValue *timeValue = [NSValue valueWithCMTime:timeFrame];
         [timesArray addObject:timeValue];
     }
@@ -232,7 +232,7 @@ static dispatch_queue_t KTImagesMovieTransferQueue () {
                                                                          outputSettings:videoSettings];
     AVAssetWriterInputPixelBufferAdaptor *adaptor = [AVAssetWriterInputPixelBufferAdaptor assetWriterInputPixelBufferAdaptorWithAssetWriterInput:writerInput sourcePixelBufferAttributes:nil];
     
-    dispatch_async(KTImagesMovieTransferQueue(), ^{
+    dispatch_async(KTMovieImagesTransferQueue(), ^{
         [videoWriter addInput:writerInput];
         [videoWriter startWriting];
         [videoWriter startSessionAtSourceTime:kCMTimeZero];
@@ -240,7 +240,7 @@ static dispatch_queue_t KTImagesMovieTransferQueue () {
         NSUInteger index = 0;
         while (index < imageFiles.count) {
             if(writerInput.readyForMoreMediaData) {
-                CMTime presentTime = CMTimeMake(index, kKTImagesMovieTransferFPS);
+                CMTime presentTime = CMTimeMake(index, kKTMovieImagesTransferFPS);
                 tmpImage = [UIImage imageWithContentsOfFile:[imageFiles objectAtIndex:index]];
                 if (!tmpImage) {
                     returnError = [self errorWithErrorCode:KTTransferReadImageError object:[imageFiles firstObject]];
@@ -332,7 +332,7 @@ static dispatch_queue_t KTImagesMovieTransferQueue () {
 - (NSError *)opencvTransferMovie:(NSString *)movie toImagesAtPath:(NSString *)imagesPath
 {
     __block NSError *returnError = nil;
-    dispatch_async(KTImagesMovieTransferQueue(), ^{
+    dispatch_async(KTMovieImagesTransferQueue(), ^{
         CvCapture *pCapture = cvCaptureFromFile(movie.UTF8String);
         // 这个函数只是读取视频头文件信息来获取帧数，因此有可能有不对的情况
         // NSUInteger totalFrameCount = cvGetCaptureProperty(pCapture, CV_CAP_PROP_FRAME_COUNT);
@@ -385,9 +385,9 @@ static dispatch_queue_t KTImagesMovieTransferQueue () {
         return returnError;
     }
     CvSize size = cvSize(firstImage.size.width, firstImage.size.height);
-    dispatch_async(KTImagesMovieTransferQueue(), ^{
+    dispatch_async(KTMovieImagesTransferQueue(), ^{
         // OpenCV由于不原生支持H264（可以用其他办法做到），这里选用MP4格式
-        CvVideoWriter *pWriter = cvCreateVideoWriter(movie.UTF8String, CV_FOURCC('D', 'I', 'V', 'X'), (double)kKTImagesMovieTransferFPS, size);
+        CvVideoWriter *pWriter = cvCreateVideoWriter(movie.UTF8String, CV_FOURCC('D', 'I', 'V', 'X'), (double)kKTMovieImagesTransferFPS, size);
         for (NSUInteger ii = 0; ii < imageFiles.count; ++ii) {
             NSString *imageFile = [imageFiles objectAtIndex:ii];
             IplImage *pImage = cvLoadImage(imageFile.UTF8String);
@@ -479,7 +479,6 @@ static dispatch_queue_t KTImagesMovieTransferQueue () {
             int frameFinished = 0;
             avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, &packet);
             if (frameFinished) {
-                <#statements#>
             }
         }
         av_free_packet(&packet);
